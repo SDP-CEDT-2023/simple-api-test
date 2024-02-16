@@ -17,8 +17,8 @@ Get Calculation JSON
 
 *** Test Cases ***
 Test Addition with Valid Numbers
-    ${resp}=   GET   http://192.168.56.104:5000/plus/5/6    expected_status=200
-    ${json_resp}=   ${resp.json()}
+    ${resp}=    GET   http://192.168.56.104:5000/plus/5/6   expected_status=200
+    ${json_resp}=   Set Variable    ${resp.json()}
     Log To Console    ${json_resp}
 
 Test Addition with Invalid Numbers
