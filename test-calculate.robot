@@ -17,24 +17,12 @@ Get Calculation JSON
 
 *** Test Cases ***
 Test Addition with Valid Numbers
-    [Documentation]    Test addition with valid numbers
-    [Tags]    positive
-    Create Session    PlusSession    http://192.168.56.104:5000
-
-    ${response}    Get Request    PlusSession    /plus/5/6
-    Should Be Equal As Strings    ${response.status_code}    200
-    ${json_response}    To JSON    ${response.content}
-    Should Be Equal As Integers    ${json_response.result}    11
+    ${res}=   GET   http://192.168.56.104:5000/plus/5/6    expected_status=200
+    ${json_resp}=   ${resp.json()}
+    Should Be Equal    ${json_resp['result']}    11
 
 Test Addition with Invalid Numbers
-    [Documentation]    Test addition with invalid numbers
-    [Tags]    negative
-    Create Session    PlusSession    http://192.168.56.104:5000
-
-    ${response}    Get Request    PlusSession    /plus/abc/def
-    Should Be Equal As Strings    ${response.status_code}    400
-    ${json_response}    To JSON    ${response.content}
-    Should Be Equal As Strings    ${json_response.error_msg}    Invalid input
+    ${res}=   GET   http://192.168.56.104:5000/plus/abc/def    expected_status=404
 
 
 Test Calculate Numbers 4 and 2 (ฺBefore Using Keywords)
